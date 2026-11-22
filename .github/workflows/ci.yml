@@ -29,5 +29,16 @@ jobs:
       - name: Build PersonalFoundation
         run: swift build -c release
 
+      - name: Stage Metal Library
+        run: |
+          METALLIB=$(find .build -name "default.metallib" 2>/dev/null | head -n 1)
+          if [ -n "$METALLIB" ]; then
+            cp "$METALLIB" ./default.metallib
+            cp "$METALLIB" ./mlx.metallib
+            echo "Staged metallib from $METALLIB to ./default.metallib and ./mlx.metallib"
+          else
+            echo "No default.metallib found in .build"
+          fi
+
       - name: Run Test Suite
         run: swift test -c release
