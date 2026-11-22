@@ -1,6 +1,4 @@
 // swift-tools-version: 6.0
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
 import PackageDescription
 
 let package = Package(
@@ -15,13 +13,15 @@ let package = Package(
             targets: ["PersonalFoundation"]
         ),
         .executable(
-            name: "PersonalFoundationCLI",
-            targets: ["PersonalFoundationCLI"]
+            name: "PersonalFoundationTrain",
+            targets: ["PersonalFoundationTrain"]
+        ),
+        .executable(
+            name: "PersonalFoundationChat",
+            targets: ["PersonalFoundationChat"]
         )
     ],
     dependencies: [
-        // Sadece saf Apple MLX C++/Metal backend bindings (MLX, MLXNN, MLXOptimizers, MLXRandom)
-        // Hiçbir dış model yükleyici (MLXLLM, HuggingFace Hub vb.) DAHİL EDİLMEMİŞTİR.
         .package(url: "https://github.com/ml-explore/mlx-swift", from: "0.18.0")
     ],
     targets: [
@@ -31,15 +31,21 @@ let package = Package(
                 .product(name: "MLX", package: "mlx-swift"),
                 .product(name: "MLXNN", package: "mlx-swift"),
                 .product(name: "MLXOptimizers", package: "mlx-swift"),
-                .product(name: "MLXRandom", package: "mlx-swift"),
-                .product(name: "MLXFast", package: "mlx-swift")
+                .product(name: "MLXRandom", package: "mlx-swift")
             ],
             swiftSettings: [
                 .enableExperimentalFeature("StrictConcurrency")
             ]
         ),
         .executableTarget(
-            name: "PersonalFoundationCLI",
+            name: "PersonalFoundationTrain",
+            dependencies: ["PersonalFoundation"],
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
+            ]
+        ),
+        .executableTarget(
+            name: "PersonalFoundationChat",
             dependencies: ["PersonalFoundation"],
             swiftSettings: [
                 .enableExperimentalFeature("StrictConcurrency")

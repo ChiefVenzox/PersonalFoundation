@@ -1,0 +1,16 @@
+# Xcode & macOS
+.DS_Store
+*.swp
+*~
+xcuserdata/
+DerivedData/
+
+# Swift Package Manager build artifacts
+/.build
+/Packages
+.swiftpm/xcode
+
+# Large Model Weights and Checkpoints
+# GitHub blocks individual files > 100MB; weights are kept locally or via Hugging Face/Git LFS
+*.safetensors
+*.pfckpt

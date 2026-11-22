@@ -1,0 +1,120 @@
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.
+PersonalFoundation 1B modeli Apple Silicon M5 mimarisi üzerinde yirmi dört gigabayt birleşik bellekte Float16 yarı hassasiyet ile sıfırdan eğitilmektedir.
+StreamingDataLoader büyük metin ve jsonl dosyalarını diskten altmış dört kilobaytlık bloklar halinde satır satır okuyarak sistem belleğini asla şişirmez.
+Grouped Query Attention dört anahtar değer başlığı ve on altı sorgu başlığı kullanarak dikkat katmanlarının bellek bant genişliği ihtiyacını dört kat azaltır.
+SwiGLU ileri besleme ağı beş bin beş yüz dört ara katman boyutu ve Kaiming başlatması ile derin katmanlarda yüksek temsil kapasitesi sunar.
+Küresel gradyan kırpma limiti bir nokta sıfır ve Linear Warmup Cosine Annealing zamanlayıcısı bir milyar parametreli ağda gradyan patlamalarını engeller.

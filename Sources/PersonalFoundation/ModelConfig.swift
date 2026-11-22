@@ -1,73 +1,55 @@
 import Foundation
 import MLX
+import MLXNN
 import MLXRandom
 
-// MARK: - ModelConfig (Mimari Hiperparametre Yapılandırması)
+// MARK: - 1. 110M Yoğun Model Yapılandırması (ModelConfig)
 
-/// `PersonalFoundation` sıfırdan (from-scratch) eğitilecek Decoder-only Transformer
-/// mimarisinin tüm boyutlarını ve matematiksel hiperparametrelerini tanımlayan yapı.
-///
-/// Swift 6 Strict Concurrency kurallarına tam uyum için `Sendable` protokolünü uygular
-/// ve tamamen değer tipi (value-type / immutable) olarak tasarlanmıştır.
+/// Apple Silicon (M5 - 24GB Unified Memory) üzerinde sıfırdan eğitilecek
+/// 110M parametre sınıfı yoğun (dense) Decoder-only Transformer modelinin hiperparametrelerini tanımlar.
+/// Swift 6 Strict Concurrency uyumluluğu için `Sendable` protokolünü uygular.
 public struct ModelConfig: Sendable, Codable, Equatable {
-    /// Kelime dağarcığı boyutu (Vocabulary Size - |V|).
+    /// Sözlük boyutu (Varsayılan: 32,000)
     public let vocabSize: Int
-
-    /// Gizli katman / gömme vektör boyutu (Hidden Dimension - d_model).
+    /// Gizli katman boyutu (d_model, Varsayılan: 768)
     public let hiddenSize: Int
-
-    /// SwiGLU FeedForward (MLP) katmanı ara boyutu (Intermediate Dimension - d_ff).
-    /// Genellikle `(8/3) * hiddenSize` değerinin 256'nın katına yuvarlanmış halidir.
+    /// SwiGLU MLP ara katman boyutu (~8/3 * hiddenSize, Varsayılan: 2,048)
     public let intermediateSize: Int
-
-    /// Ardışık Transformer bloğu sayısı (Number of Decoder Layers - L).
+    /// Transformer blok (katman) sayısı (Varsayılan: 12)
     public let numLayers: Int
-
-    /// Sorgu (Query) dikkat başlığı sayısı (Number of Attention Heads - H_q).
+    /// Sorgu (Query) dikkat başlığı sayısı (n_heads, Varsayılan: 12 -> Head Dim: 64)
     public let numHeads: Int
-
-    /// Anahtar/Değer (Key/Value) dikkat başlığı sayısı (Grouped-Query Attention için H_kv).
-    /// `numKVHeads == numHeads` ise standart Multi-Head Attention (MHA),
-    /// `numKVHeads < numHeads` ise bellek dostu Grouped-Query Attention (GQA) çalışır.
+    /// Anahtar/Değer (Key/Value) dikkat başlığı sayısı (GQA 3:1, Varsayılan: 4)
     public let numKVHeads: Int
-
-    /// Maksimum bağlam penceresi uzunluğu (Maximum Sequence Length - T_max).
+    /// Maksimum bağlam uzunluğu (Sequence Length, Varsayılan: 512)
     public let maxSequenceLength: Int
-
-    /// RMSNorm sayısal kararlılık sabiti (Epsilon - \epsilon).
+    /// RMSNorm sayısal kararlılık sabiti (epsilon)
     public let rmsNormEps: Float
-
-    /// Rotary Position Embedding (RoPE) frekans tabanı (\theta_{base}).
+    /// RoPE (Rotary Position Embedding) frekans tabanı (theta)
     public let ropeTheta: Float
-
-    /// Giriş Token Embedding ağırlıkları ile çıkış LM Head ağırlıklarının paylaşılıp paylaşılmayacağı.
-    /// Apple Silicon 24GB birleşik bellekte (Unified Memory) parametre tasarrufu sağlar.
+    /// Giriş Embedding ile Çıkış LM Head ağırlıklarının paylaşılıp paylaşılmayacağı (Weight Tying)
     public let tieWordEmbeddings: Bool
 
-    /// Ağırlık başlatma (Initialization) için rastgele tohum (Seed).
-    public let initSeed: UInt64
-
-    /// Her bir dikkat başlığının vektör boyutu: `d_head = hiddenSize / numHeads`.
+    /// Her bir dikkat başlığının vektör boyutu: d_k = hiddenSize / numHeads (110M varsayılanı: 64)
     public var headDim: Int {
         hiddenSize / numHeads
     }
 
     public init(
         vocabSize: Int = 32_000,
-        hiddenSize: Int = 1024,
-        intermediateSize: Int = 2816,
-        numLayers: Int = 16,
-        numHeads: Int = 16,
+        hiddenSize: Int = 768,
+        intermediateSize: Int = 2_048,
+        numLayers: Int = 12,
+        numHeads: Int = 12,
         numKVHeads: Int = 4,
-        maxSequenceLength: Int = 2048,
+        maxSequenceLength: Int = 512,
         rmsNormEps: Float = 1e-5,
         ropeTheta: Float = 10_000.0,
-        tieWordEmbeddings: Bool = false,
-        initSeed: UInt64 = 42
+        tieWordEmbeddings: Bool = false
     ) {
         precondition(hiddenSize % numHeads == 0, "hiddenSize (\(hiddenSize)), numHeads (\(numHeads)) değerine tam bölünmelidir.")
         precondition(numHeads % numKVHeads == 0, "numHeads (\(numHeads)), numKVHeads (\(numKVHeads)) değerine tam bölünmelidir.")
-        precondition((hiddenSize / numHeads) % 2 == 0, "RoPE rotasyonu için headDim çift sayı olmalıdır.")
+        precondition((hiddenSize / numHeads) % 2 == 0, "RoPE uygulaması için headDim çift sayı olmalıdır.")
 
         self.vocabSize = vocabSize
         self.hiddenSize = hiddenSize
@@ -79,109 +61,76 @@ public struct ModelConfig: Sendable, Codable, Equatable {
         self.rmsNormEps = rmsNormEps
         self.ropeTheta = ropeTheta
         self.tieWordEmbeddings = tieWordEmbeddings
-        self.initSeed = initSeed
     }
 
-    /// Apple Silicon M5 (24GB Unified Memory) üzerinde hızlı prototipleme ve
-    /// sıfırdan ön-eğitim doğrulaması için ~25M parametreli mikro yapılandırma.
-    public static let microM5 = ModelConfig(
-        vocabSize: 16_384,
-        hiddenSize: 512,
-        intermediateSize: 1536,
-        numLayers: 8,
-        numHeads: 8,
-        numKVHeads: 4,
-        maxSequenceLength: 1024
-    )
-
-    /// Apple Silicon M5 (24GB Unified Memory) üzerinde tam kapsamlı sıfırdan eğitim için
-    /// ~350M parametreli dengeli yapılandırma.
-    public static let smallM5 = ModelConfig(
-        vocabSize: 32_000,
-        hiddenSize: 1024,
-        intermediateSize: 2816,
-        numLayers: 24,
-        numHeads: 16,
-        numKVHeads: 4,
-        maxSequenceLength: 2048
-    )
+    /// 110M Yoğun (Dense) Mimari Profili (32.000 sözlük, 12 katman, 768 gizli boyut, 12/4 GQA, 512 bağlam)
+    public static func dense110M(vocabSize: Int = 32_000, maxSequenceLength: Int = 512) -> ModelConfig {
+        return ModelConfig(
+            vocabSize: vocabSize,
+            hiddenSize: 768,
+            intermediateSize: 2_048,
+            numLayers: 12,
+            numHeads: 12,
+            numKVHeads: 4,
+            maxSequenceLength: maxSequenceLength
+        )
+    }
 }
 
-// MARK: - WeightInitializer (Matematiksel Sıfırdan Ağırlık Başlatıcı)
+// MARK: - 2. True Mixed Precision (.float32 Master Weights + .bfloat16 Compute) Ağırlık Başlatıcı
 
-/// Dışarıdan hazır ağırlık (safetensors/HuggingFace) yüklemek yerine,
-/// modelin tüm tensörlerini sıfırdan matematiksel dağılımlarla (Xavier/Glorot, Kaiming/He ve GPT-2/Depth-Scaled Residual)
-/// başlatan saf matematiksel yardımcı yapı.
-public enum WeightInitializer {
-    /// Başlatma stratejisi türleri.
-    public enum Strategy: Sendable {
-        /// **Xavier / Glorot Normal Başlatma**
-        /// Doğrusal projeksiyonlar ve dikkat (Q, K, V) katmanlarında ileri ve geri yayılım varyansını korur:
-        /// $$\sigma = \text{gain} \times \sqrt{\frac{2}{\text{fan}_{in} + \text{fan}_{out}}}$$
-        case xavierNormal(gain: Float = 1.0)
+/// Dışarıdan hiçbir ağırlık yüklemeden, modelin ana ağırlıklarını (Master Weights)
+/// **Float32 (`.float32`)** hassasiyetinde matematiksel dağılımlarla başlatır.
+/// İleri ve geri yayılım matris çarpımları katmanlar içinde `.bfloat16` olarak yürütülür.
+public enum WeightInitializer: Sendable {
 
-        /// **Xavier / Glorot Uniform Başlatma**
-        /// $$a = \text{gain} \times \sqrt{\frac{6}{\text{fan}_{in} + \text{fan}_{out}}}, \quad W \sim \mathcal{U}(-a, a)$$
-        case xavierUniform(gain: Float = 1.0)
-
-        /// **Kaiming / He Normal Başlatma**
-        /// Doğrusal olmayan (SwiGLU / SiLU) aktivasyon katmanlarında sinyal sönümlenmesini önler:
-        /// $$\sigma = \frac{\text{gain}}{\sqrt{\text{fan}_{in}}}$$
-        /// SwiGLU / SiLU için önerilen efektif kazanç (gain) $\approx \sqrt{2}$'dir.
-        case kaimingNormal(gain: Float = sqrt(2.0))
-
-        /// **Derinlik Ölçekli Artık (Residual Depth-Scaled) Başlatma**
-        /// Derin Transformer ağlarında artık bağlantı (residual stream: $x + \text{SubLayer}(x)$) boyunca
-        /// varyansın katman sayısı $L$ ile patlamasını önlemek için çıkış projeksiyonlarını ($W_o, W_{down}$)
-        /// $\frac{1}{\sqrt{2 \cdot L}}$ çarpanıyla ölçekler:
-        /// $$\sigma = \frac{1}{\sqrt{\text{fan}_{in}} \cdot \sqrt{2 \cdot L}}$$
-        case residualScaledKaiming(numLayers: Int)
-
-        /// **Token Embedding Başlatma**
-        /// Standart normal dağılımdan $\sigma = \frac{1}{\sqrt{d_{model}}}$ ile örneklenir.
-        case embedding(hiddenSize: Int)
-    }
-
-    /// Verilen boyut (`shape`) ve matematiksel stratejiye göre sıfırdan `MLXArray` ağırlık tensörü üretir.
-    ///
-    /// - Parameters:
-    ///   - shape: Tensör boyutları (Örn: `[outFeatures, inFeatures]` veya `[vocabSize, hiddenSize]`).
-    ///   - strategy: Uygulanacak matematiksel varyans koruma formülü.
-    ///   - dtype: Tensör veri tipi (Varsayılan: `.float32`; M5 üzerinde karma duyarlıklı eğitim için `.bfloat16` seçilebilir).
-    /// - Returns: Matematiksel olarak başlatılmış `MLXArray`.
-    public static func initialize(
+    /// **Xavier (Glorot) Normal Başlatma (Varsayılan: `.float32` Master Weight)**
+    public static func xavierNormal(
         shape: [Int],
-        strategy: Strategy,
+        fanIn: Int,
+        fanOut: Int,
+        gain: Float = 1.0,
         dtype: DType = .float32
     ) -> MLXArray {
-        precondition(!shape.isEmpty, "Tensör boyutu boş olamaz.")
+        let std = gain * sqrt(2.0 / Float(fanIn + fanOut))
+        let scale = MLXArray(std).asType(dtype)
+        return MLXRandom.normal(shape, dtype: dtype) * scale
+    }
 
-        // 2D ağırlık matrisleri [outFeatures, inFeatures] veya [inFeatures, outFeatures] için fan_in ve fan_out hesabı
-        let fanOut = shape[0]
-        let fanIn = shape.count > 1 ? shape[1] : shape[0]
+    /// **Kaiming (He) Normal Başlatma (Varsayılan: `.float32` Master Weight)**
+    public static func kaimingNormal(
+        shape: [Int],
+        fanIn: Int,
+        gain: Float = sqrt(2.0),
+        dtype: DType = .float32
+    ) -> MLXArray {
+        let std = gain / sqrt(Float(fanIn))
+        let scale = MLXArray(std).asType(dtype)
+        return MLXRandom.normal(shape, dtype: dtype) * scale
+    }
 
-        switch strategy {
-        case .xavierNormal(let gain):
-            let std = gain * sqrt(2.0 / Float(fanIn + fanOut))
-            return MLXRandom.normal(shape, dtype: dtype) * MLXArray(std).asType(dtype)
+    /// **Derinlik Ölçekli Residual (Artık Bağlantı) Başlatma (Varsayılan: `.float32` Master Weight)**
+    public static func residualScaledNormal(
+        shape: [Int],
+        fanIn: Int,
+        numLayers: Int,
+        dtype: DType = .float32
+    ) -> MLXArray {
+        let baseStd = 1.0 / sqrt(Float(fanIn))
+        let depthScale = 1.0 / sqrt(2.0 * Float(numLayers))
+        let std = baseStd * depthScale
+        let scale = MLXArray(std).asType(dtype)
+        return MLXRandom.normal(shape, dtype: dtype) * scale
+    }
 
-        case .xavierUniform(let gain):
-            let bound = gain * sqrt(6.0 / Float(fanIn + fanOut))
-            return MLXRandom.uniform(low: -bound, high: bound, shape, dtype: dtype)
-
-        case .kaimingNormal(let gain):
-            let std = gain / sqrt(Float(fanIn))
-            return MLXRandom.normal(shape, dtype: dtype) * MLXArray(std).asType(dtype)
-
-        case .residualScaledKaiming(let numLayers):
-            let baseStd = 1.0 / sqrt(Float(fanIn))
-            let depthScale = 1.0 / sqrt(2.0 * Float(max(numLayers, 1)))
-            let std = baseStd * depthScale
-            return MLXRandom.normal(shape, dtype: dtype) * MLXArray(std).asType(dtype)
-
-        case .embedding(let hiddenSize):
-            let std = 1.0 / sqrt(Float(hiddenSize))
-            return MLXRandom.normal(shape, dtype: dtype) * MLXArray(std).asType(dtype)
-        }
+    /// **Embedding Başlatma (Varsayılan: `.float32` Master Weight)**
+    public static func embeddingNormal(
+        vocabSize: Int,
+        hiddenSize: Int,
+        dtype: DType = .float32
+    ) -> MLXArray {
+        let std = 1.0 / sqrt(Float(hiddenSize))
+        let scale = MLXArray(std).asType(dtype)
+        return MLXRandom.normal([vocabSize, hiddenSize], dtype: dtype) * scale
     }
 }
