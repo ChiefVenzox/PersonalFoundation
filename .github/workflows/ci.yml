@@ -13,8 +13,8 @@ concurrency:
 
 jobs:
   build-and-test:
-    name: Build & Test (macOS Apple Silicon)
-    runs-on: macos-14
+    name: Build & Test (macOS)
+    runs-on: macos-latest
 
     steps:
       - name: Checkout Repository
