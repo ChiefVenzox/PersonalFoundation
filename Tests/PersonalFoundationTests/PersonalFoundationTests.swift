@@ -8,25 +8,19 @@ struct PersonalFoundationTests {
 
     init() {
         if GPU.metallib == nil {
-            let fm = FileManager.default
-            let cwd = URL(fileURLWithPath: fm.currentDirectoryPath)
-            let cwdMetallib = cwd.appendingPathComponent("default.metallib")
-
-            if fm.fileExists(atPath: cwdMetallib.path) {
-                GPU.metallib = cwdMetallib
+            if let moduleURL = Bundle.module.url(forResource: "default", withExtension: "metallib") {
+                GPU.metallib = moduleURL
             } else {
-                let buildDir = cwd.appendingPathComponent(".build")
-                if let enumerator = fm.enumerator(
-                    at: buildDir,
-                    includingPropertiesForKeys: [.isRegularFileKey],
-                    options: [.skipsHiddenFiles]
-                ) {
-                    while let fileURL = enumerator.nextObject() as? URL {
-                        if fileURL.lastPathComponent == "default.metallib" {
-                            GPU.metallib = fileURL
-                            break
-                        }
-                    }
+                let fm = FileManager.default
+                let cwd = URL(fileURLWithPath: fm.currentDirectoryPath)
+                let candidates = [
+                    cwd.appendingPathComponent("Sources/PersonalFoundation/Resources/default.metallib"),
+                    cwd.appendingPathComponent("default.metallib"),
+                    cwd.appendingPathComponent("mlx.metallib")
+                ]
+                for url in candidates where fm.fileExists(atPath: url.path) {
+                    GPU.metallib = url
+                    break
                 }
             }
         }

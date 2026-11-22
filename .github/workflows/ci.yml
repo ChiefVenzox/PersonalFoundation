@@ -31,14 +31,9 @@ jobs:
 
       - name: Stage Metal Library
         run: |
-          METALLIB=$(find .build -name "default.metallib" 2>/dev/null | head -n 1)
-          if [ -n "$METALLIB" ]; then
-            cp "$METALLIB" ./default.metallib
-            cp "$METALLIB" ./mlx.metallib
-            echo "Staged metallib from $METALLIB to ./default.metallib and ./mlx.metallib"
-          else
-            echo "No default.metallib found in .build"
-          fi
+          cp Sources/PersonalFoundation/Resources/default.metallib ./default.metallib
+          cp Sources/PersonalFoundation/Resources/default.metallib ./mlx.metallib
+          echo "Staged default.metallib and mlx.metallib into workspace root"
 
       - name: Run Test Suite
         run: swift test -c release
