@@ -1,0 +1,60 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "optparse"
+require "personal_foundation"
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: personal_foundation [options] [prompt]"
+
+  opts.on("-p", "--prompt PROMPT", "Text prompt to send to the foundation model") do |p|
+    options[:prompt] = p
+  end
+
+  opts.on("-t", "--temperature TEMP", Float, "Sampling temperature (default: 0.7)") do |t|
+    options[:temperature] = t
+  end
+
+  opts.on("-m", "--max-tokens TOKENS", Integer, "Maximum new tokens to generate (default: 120)") do |m|
+    options[:max_tokens] = m
+  end
+
+  opts.on("-j", "--json", "Output response in JSON format") do
+    options[:json] = true
+  end
+
+  opts.on("-v", "--version", "Show version") do
+    puts "PersonalFoundation Ruby Gem v#{PersonalFoundation::VERSION}"
+    exit 0
+  end
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit 0
+  end
+end.parse!
+
+prompt = options[:prompt] || ARGV.join(" ")
+
+if prompt.nil? || prompt.strip.empty?
+  warn "Error: Please provide a prompt. Example: personal_foundation 'Merhaba, nasılsın?'"
+  exit 1
+end
+
+begin
+  response = PersonalFoundation.generate(
+    prompt,
+    temperature: options[:temperature],
+    max_tokens: options[:max_tokens]
+  )
+
+  if options[:json]
+    puts JSON.pretty_generate(response.raw)
+  else
+    puts response.text
+  end
+rescue PersonalFoundation::Error => e
+  warn "Error: #{e.message}"
+  exit 1
+end

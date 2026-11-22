@@ -14,3 +14,9 @@ DerivedData/
 # GitHub blocks individual files > 100MB; weights are kept locally or via Hugging Face/Git LFS
 *.safetensors
 *.pfckpt
+
+# Ruby Gem packages
+*.gem
+.bundle/
+vendor/bundle/
+

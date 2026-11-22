@@ -92,26 +92,76 @@ struct PersonalFoundationChatApp {
     static func main() {
         let startupBegin = CFAbsoluteTimeGetCurrent()
 
-        print("============================================================================================")
-        print("   PersonalFoundation 110M v4 (32K Vocab | BFloat16) — Canlı KV-Cache Türkçe Sohbet Motoru")
-        print("============================================================================================")
+        // Komut satırı argümanları ayrıştırma (--prompt, --json, --temperature, --max-tokens, --model-dir)
+        var cliPrompt: String? = nil
+        var isJSONOutput = false
+        var cliTemperature: Float = 0.7
+        var cliMaxTokens: Int = 120
+        var customModelDir: URL? = nil
 
-        let currentDir = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        let tokenizerURL = currentDir.appendingPathComponent("personalfoundation_110m_tokenizer.json")
-        let ckpt110MV4 = currentDir.appendingPathComponent("personalfoundation_110m_chat_v4.safetensors")
-        let ckpt110MV3 = currentDir.appendingPathComponent("personalfoundation_110m_pretrain_v3.safetensors")
-        let ckpt110MV2 = currentDir.appendingPathComponent("personalfoundation_110m_pretrain_v2.safetensors")
-
-        let checkpointURL: URL
-        if FileManager.default.fileExists(atPath: ckpt110MV4.path) {
-            checkpointURL = ckpt110MV4
-        } else if FileManager.default.fileExists(atPath: ckpt110MV3.path) {
-            checkpointURL = ckpt110MV3
-        } else {
-            checkpointURL = ckpt110MV2
+        var argIdx = 1
+        while argIdx < CommandLine.arguments.count {
+            let arg = CommandLine.arguments[argIdx]
+            if (arg == "--prompt" || arg == "-p") && argIdx + 1 < CommandLine.arguments.count {
+                cliPrompt = CommandLine.arguments[argIdx + 1]
+                argIdx += 1
+            } else if arg == "--json" {
+                isJSONOutput = true
+            } else if (arg == "--temperature" || arg == "-t") && argIdx + 1 < CommandLine.arguments.count {
+                if let val = Float(CommandLine.arguments[argIdx + 1]) { cliTemperature = val }
+                argIdx += 1
+            } else if (arg == "--max-tokens" || arg == "-m") && argIdx + 1 < CommandLine.arguments.count {
+                if let val = Int(CommandLine.arguments[argIdx + 1]) { cliMaxTokens = val }
+                argIdx += 1
+            } else if (arg == "--model-dir" || arg == "-d") && argIdx + 1 < CommandLine.arguments.count {
+                customModelDir = URL(fileURLWithPath: CommandLine.arguments[argIdx + 1])
+                argIdx += 1
+            }
+            argIdx += 1
         }
 
-        // 1. Hiçbir eğitim yapmadan doğrudan 32K BPE Sözlüğü ve v4 Safetensors Ağırlıklarını (.bfloat16 Çıkarım Modunda) Yükle
+        let isInteractive = (cliPrompt == nil)
+
+        if isInteractive {
+            print("============================================================================================")
+            print("   PersonalFoundation 110M v4 (32K Vocab | BFloat16) — Canlı KV-Cache Türkçe Sohbet Motoru")
+            print("============================================================================================")
+        }
+
+        var searchDirs: [URL] = []
+        if let customModelDir { searchDirs.append(customModelDir) }
+        if let envDir = ProcessInfo.processInfo.environment["PERSONAL_FOUNDATION_DIR"] {
+            searchDirs.append(URL(fileURLWithPath: envDir))
+        }
+        searchDirs.append(URL(fileURLWithPath: FileManager.default.currentDirectoryPath))
+        searchDirs.append(URL(fileURLWithPath: "/Users/hakankaba/Desktop/PersonalFoundation"))
+
+        var resolvedTokenizerURL: URL? = nil
+        var resolvedCheckpointURL: URL? = nil
+
+        for dir in searchDirs {
+            let tok = dir.appendingPathComponent("personalfoundation_110m_tokenizer.json")
+            if FileManager.default.fileExists(atPath: tok.path) && resolvedTokenizerURL == nil {
+                resolvedTokenizerURL = tok
+            }
+            let ckpt4 = dir.appendingPathComponent("personalfoundation_110m_chat_v4.safetensors")
+            let ckpt3 = dir.appendingPathComponent("personalfoundation_110m_pretrain_v3.safetensors")
+            let ckpt2 = dir.appendingPathComponent("personalfoundation_110m_pretrain_v2.safetensors")
+            if FileManager.default.fileExists(atPath: ckpt4.path) && resolvedCheckpointURL == nil {
+                resolvedCheckpointURL = ckpt4
+            } else if FileManager.default.fileExists(atPath: ckpt3.path) && resolvedCheckpointURL == nil {
+                resolvedCheckpointURL = ckpt3
+            } else if FileManager.default.fileExists(atPath: ckpt2.path) && resolvedCheckpointURL == nil {
+                resolvedCheckpointURL = ckpt2
+            }
+        }
+
+        guard let tokenizerURL = resolvedTokenizerURL, let checkpointURL = resolvedCheckpointURL else {
+            fputs("❌ Başlatma Hatası: Tokenizer ('personalfoundation_110m_tokenizer.json') veya model ağırlıkları (.safetensors) bulunamadı.\n", stderr)
+            exit(1)
+        }
+
+        // 1. Doğrudan 32K BPE Sözlüğü ve v4 Safetensors Ağırlıklarını (.bfloat16 Çıkarım Modunda) Yükle
         let tokenizer: BPETokenizer
         let model: PersonalFoundationModel
         let header: CheckpointHeader
@@ -120,15 +170,54 @@ struct PersonalFoundationChatApp {
             tokenizer = try BPETokenizer.load(from: tokenizerURL)
             (model, header) = try CheckpointManager.load(from: checkpointURL, dtype: .bfloat16)
         } catch {
-            print("❌ Başlatma Hatası: '\(tokenizerURL.lastPathComponent)' veya '\(checkpointURL.lastPathComponent)' yüklenemedi.")
-            print("   Detay: \(error.localizedDescription)")
-            return
+            fputs("❌ Başlatma Hatası: '\(tokenizerURL.lastPathComponent)' veya '\(checkpointURL.lastPathComponent)' yüklenemedi: \(error.localizedDescription)\n", stderr)
+            exit(1)
         }
 
         let startupElapsedSec = CFAbsoluteTimeGetCurrent() - startupBegin
         let startupElapsedMs = startupElapsedSec * 1000.0
         let activeRAM_MB = Double(MLX.Memory.activeMemory) / (1024.0 * 1024.0)
 
+        let generator = TextGenerator(model: model)
+
+        // CLI / Ruby / Programatik Tek Seferlik Çağrı Modu
+        if let prompt = cliPrompt {
+            let formattedPrompt = ChatSample.formatInferencePrompt(question: prompt)
+            let samplingConfig = SamplingConfig(
+                temperature: cliTemperature,
+                topK: 40,
+                topP: 0.9,
+                repetitionPenalty: 1.18,
+                maxNewTokens: cliMaxTokens,
+                eosTokenId: SpecialToken.imEnd.rawValue
+            )
+
+            let result = generator.generateText(
+                prompt: formattedPrompt,
+                tokenizer: tokenizer,
+                config: samplingConfig,
+                addBOS: false
+            )
+
+            if isJSONOutput {
+                let jsonDict: [String: Any] = [
+                    "prompt": prompt,
+                    "response": result.generatedText,
+                    "tokens_generated": result.result.generatedTokens.count,
+                    "prefill_time_ms": result.result.prefillTimeMs,
+                    "tokens_per_second": result.result.tokensPerSecond
+                ]
+                if let data = try? JSONSerialization.data(withJSONObject: jsonDict, options: [.sortedKeys]),
+                   let str = String(data: data, encoding: .utf8) {
+                    print(str)
+                }
+            } else {
+                print(result.generatedText)
+            }
+            return
+        }
+
+        // İnteraktif REPL Bilgilendirme
         print(String(
             format: "✅ Model & 32K Sözlük Yüklendi | Açılış Süresi: %.2f sn (%.0f ms)",
             startupElapsedSec,
@@ -152,7 +241,6 @@ struct PersonalFoundationChatApp {
         print("Komutlar: '/temizle' -> Konuşma hafızasını sıfırlar | '/cikis' -> Programdan çıkar")
         print("--------------------------------------------------------------------------------------------")
 
-        let generator = TextGenerator(model: model)
         var memory = MultiTurnChatMemory(
             maxSequenceLength: model.config.maxSequenceLength,
             reservedResponseTokens: 120

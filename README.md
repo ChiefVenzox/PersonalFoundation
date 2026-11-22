@@ -3,8 +3,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Swift-6.0-orange.svg?style=flat-square&logo=swift" alt="Swift 6.0" />
   <img src="https://img.shields.io/badge/MLX-mlx--swift-blue.svg?style=flat-square" alt="MLX Swift" />
+  <img src="https://img.shields.io/badge/Ruby-gem%20v0.0.1-red.svg?style=flat-square&logo=ruby" alt="Ruby Gem" />
   <img src="https://img.shields.io/badge/Platform-Apple%20Silicon-silver.svg?style=flat-square&logo=apple" alt="Apple Silicon" />
-  <img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="MIT License" />
+  <img src="https://img.shields.io/badge/GitHub%20Packages-personal__foundation-blueviolet.svg?style=flat-square" alt="GitHub Packages" />
+  <img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square&logo=opensourceinitiative" alt="MIT License" />
   <img src="https://img.shields.io/badge/Security-Policy-brightgreen.svg?style=flat-square" alt="Security" />
 </p>
 
@@ -93,6 +95,51 @@ Eğitilen model ile interaktif terminal sohbeti gerçekleştirmek için:
 ```bash
 swift run -c release PersonalFoundationChat
 ```
+
+Tek komutla doğrudan yanıt üretmek için:
+```bash
+swift run PersonalFoundationChat --prompt "Yapay zeka nedir?" --json
+```
+
+---
+
+## 💎 Ruby Entegrasyonu & Gem Paketi (`personal_foundation`)
+
+PersonalFoundation modelini **Ruby** projelerinizden doğrudan çalıştırmak ve entegre etmek için `personal_foundation` gem'i hazırlanmıştır.
+
+### Kurulum (GitHub Packages)
+```bash
+gem install personal_foundation --source "https://rubygems.pkg.github.com/ChiefVenzox"
+```
+
+Veya `Gemfile` dosyanıza ekleyerek:
+```ruby
+source "https://rubygems.pkg.github.com/ChiefVenzox" do
+  gem "personal_foundation", "~> 0.0.1"
+end
+```
+
+### Ruby ile Kullanım Örneği
+```ruby
+require "personal_foundation"
+
+# 1. Hızlı Yanıt Üretimi
+response = PersonalFoundation.generate(
+  "Türkiye'nin başkenti neresidir?",
+  temperature: 0.7,
+  max_tokens: 80
+)
+
+puts "Yanıt : #{response.text}"
+puts "Hız   : #{response.tokens_per_second.round(1)} token/sn"
+puts "Token : #{response.tokens_generated}"
+
+# 2. Doğrudan Metin Olarak Sohbet
+cevap = PersonalFoundation.chat("Atatürk kimdir?")
+puts cevap
+```
+
+Detaylar için [ruby/README.md](ruby/README.md) dosyasını inceleyebilirsiniz.
 
 ---
 
