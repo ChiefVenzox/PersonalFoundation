@@ -1,6 +1,8 @@
 # PersonalFoundation
 
 <p align="center">
+  <a href="https://github.com/ChiefVenzox/PersonalFoundation/actions/workflows/ci.yml"><img src="https://github.com/ChiefVenzox/PersonalFoundation/actions/workflows/ci.yml/badge.svg" alt="CI - Swift Build & Test" /></a>
+  <a href="https://github.com/ChiefVenzox/PersonalFoundation/actions/workflows/ruby-gem.yml"><img src="https://github.com/ChiefVenzox/PersonalFoundation/actions/workflows/ruby-gem.yml/badge.svg" alt="Ruby Gem CI" /></a>
   <img src="https://img.shields.io/badge/Swift-6.0-orange.svg?style=flat-square&logo=swift" alt="Swift 6.0" />
   <img src="https://img.shields.io/badge/MLX-mlx--swift-blue.svg?style=flat-square" alt="MLX Swift" />
   <img src="https://img.shields.io/badge/Ruby-gem%20v0.0.1-red.svg?style=flat-square&logo=ruby" alt="Ruby Gem" />

@@ -1,0 +1,33 @@
+name: CI - Swift Build & Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build & Test (macOS Apple Silicon)
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: System & Swift Info
+        run: |
+          uname -a
+          sw_vers
+          swift --version
+
+      - name: Build PersonalFoundation
+        run: swift build -c release
+
+      - name: Run Test Suite
+        run: swift test
