@@ -53,11 +53,13 @@ struct PersonalFoundationTests {
 
     @Test("CustomRMSNorm Shape and Normalization")
     func testCustomRMSNorm() {
-        let norm = CustomRMSNorm(dimensions: 64)
-        let input = MLXRandom.normal([2, 10, 64])
-        let output = norm(input)
-        eval(output)
-        #expect(output.shape == [2, 10, 64])
+        Device.withDefaultDevice(.cpu) {
+            let norm = CustomRMSNorm(dimensions: 64)
+            let input = MLXArray.ones([2, 10, 64], dtype: .float32)
+            let output = norm(input)
+            eval(output)
+            #expect(output.shape == [2, 10, 64])
+        }
     }
 
     @Test("ModelKVCache Initialization and Reset")

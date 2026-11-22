@@ -30,4 +30,4 @@ jobs:
         run: swift build -c release
 
       - name: Run Test Suite
-        run: swift test
+        run: swift test -c release
